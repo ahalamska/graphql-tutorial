@@ -1,4 +1,4 @@
 type Mutation {
     addUser(user: UserDto!): UserPayload
-    #TODO dodać addTrip
+    addTrip(trip: TripDto!): TripPayload
 }

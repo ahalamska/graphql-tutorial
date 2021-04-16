@@ -30,3 +30,7 @@ data class TripDto (
             price
         )
 }
+
+data class TripPayload(
+    val tripId: String
+)
