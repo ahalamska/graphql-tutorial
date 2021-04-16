@@ -23,5 +23,7 @@ class Query(val userRepository: UserRepository, val tripRepository: TripReposito
             it.getUser()
         }
 
+    //TODO add trip and trips queries
+
 }
 

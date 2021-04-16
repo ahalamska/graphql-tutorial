@@ -12,3 +12,5 @@ type User {
 enum Gender {
 FEMALE, MALE
 }
+
+##TODO add trip and trips queries
