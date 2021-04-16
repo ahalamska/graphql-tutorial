@@ -8,7 +8,15 @@ type User {
     gender: Gender
     age: Int
     createdTrips: [Trip!]!
+    birthDate: Date
 }
+
+type UserNotFound {
+    id: ID!
+}
+
+union UserCandidate = UserNotFound | User
+
 
 type UserPayload {
     userId: String
@@ -40,8 +48,8 @@ type Trip {
     description: String!
     maxParticipantsCount: Int
     price: Float!
-    participants: [User]
-    owner: User
+    participants: [UserCandidate]
+    owner: UserCandidate
     date: DateTime
 }
 

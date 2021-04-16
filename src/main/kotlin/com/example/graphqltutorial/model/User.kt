@@ -2,8 +2,12 @@ package com.example.graphqltutorial.model
 
 import java.time.LocalDate
 
+interface UserCandidate {
+    val id: String
+}
+
 data class User (
-        val id: String,
+        override val id: String,
         val firstName: String,
         val surname: String,
         val email: String,
@@ -11,7 +15,12 @@ data class User (
         val gender: Gender?,
         val age: Int?,
         val birthDate: LocalDate,
-)
+): UserCandidate
+
+data class UserNotFound (
+        override val id: String
+): UserCandidate
+
 
 data class UserDto (
         val id: String,
