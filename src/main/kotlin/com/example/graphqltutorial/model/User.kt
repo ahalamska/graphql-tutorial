@@ -7,7 +7,8 @@ data class User (
         val email: String,
         val login: String,
         val gender: Gender?,
-        val age: Int?
+        val age: Int?,
+        val createdTrips: List<Trip>
 )
 
 data class UserDto (
@@ -20,7 +21,7 @@ data class UserDto (
         val age: Int?,
         val createdTripsIds: List<String>
 ){
-    fun getUser() =
+    fun getUser(trips: List<Trip>) =
         User(
             id,
             firstName,
@@ -28,9 +29,14 @@ data class UserDto (
             email,
             login,
             gender,
-            age
+            age,
+            trips
         )
 }
+
+data class UserPayload(
+    val userId: String
+)
 
 enum class Gender {
     FEMALE, MALE

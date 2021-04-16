@@ -4,6 +4,7 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver
 import com.example.graphqltutorial.TripRepository
 import com.example.graphqltutorial.model.User
 import com.example.graphqltutorial.UserRepository
+import com.example.graphqltutorial.model.Trip
 import org.springframework.stereotype.Component
 
 @Component
@@ -13,15 +14,27 @@ class Query(val userRepository: UserRepository, val tripRepository: TripReposito
     fun user(id: String): User? =
         userRepository.findUser(id).let {
             if(it != null) {
-                return it.getUser()
+                return it.getUser(tripRepository.findTrips(it.createdTripsIds).map { dto -> dto.getTrip() })
             }
             return null
         }
 
     fun users(): List<User> =
         userRepository.findUsers().map {
-            it.getUser()
+            it.getUser(tripRepository.findTrips(it.createdTripsIds).map { dto -> dto.getTrip() })
         }
 
+    fun trip(id: String): Trip? =
+        tripRepository.findTrip(id).let {
+            if(it != null) {
+                return it.getTrip()
+            }
+            return null
+        }
+
+    fun trips(): List<Trip> =
+        tripRepository.findTrips().map {
+            it.getTrip()
+        }
 }
 

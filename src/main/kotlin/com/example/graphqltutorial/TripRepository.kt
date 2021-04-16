@@ -25,4 +25,20 @@ class TripRepository {
         return trips
     }
 
+    fun findTrips(createdTripsIds: List<String>): List<TripDto> {
+        return this.trips.filter { createdTripsIds.contains(it.id) }
+    }
+
+    fun findTripsByOwner(ownerId: String): List<TripDto> {
+        return this.trips.filter { it.ownerId == ownerId }
+    }
+
+    fun addTrip(trip: TripDto): String {
+        val res = trips.add(trip)
+        if (res) {
+            return trip.id
+        }
+        else throw UnsupportedOperationException()
+    }
+
 }
