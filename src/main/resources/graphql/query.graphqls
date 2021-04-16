@@ -1,6 +1,6 @@
 type Query {
     user(id: ID!): UserCandidate
     users: [User!]!
-    trip(id: ID!): Trip
+    trip(id: ID!): TripCandidate
     trips: [Trip!]!
 }

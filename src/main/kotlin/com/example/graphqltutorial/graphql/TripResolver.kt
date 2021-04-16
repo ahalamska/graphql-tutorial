@@ -4,6 +4,7 @@ import com.coxautodev.graphql.tools.GraphQLResolver
 import com.example.graphqltutorial.TripRepository
 import com.example.graphqltutorial.UserRepository
 import com.example.graphqltutorial.model.Trip
+import com.example.graphqltutorial.model.User
 import com.example.graphqltutorial.model.UserCandidate
 import org.springframework.stereotype.Component
 
@@ -19,12 +20,10 @@ class TripResolver(val userRepository: UserRepository, val tripRepository: TripR
         return null
     }
 
-    fun participants(trip: Trip): List<UserCandidate> {
+    fun participants(trip: Trip): List<User> {
         tripRepository.findTrip(trip.id)?.let {
             return userRepository.findUsers(it.participantsId).map{ user -> user.getUser() }
         }
         return emptyList()
     }
-
-
 }

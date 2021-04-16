@@ -41,6 +41,12 @@ enum Gender {
 FEMALE, MALE
 }
 
+union TripCandidate = TripNotFound | Trip
+
+type TripNotFound{
+    id: ID!
+}
+
 type Trip {
     id: ID!
     name: String!
@@ -48,7 +54,7 @@ type Trip {
     description: String!
     maxParticipantsCount: Int
     price: Float!
-    participants: [UserCandidate]
+    participants: [User!]!
     owner: UserCandidate
     date: DateTime
 }

@@ -1,6 +1,8 @@
 package com.example.graphqltutorial.graphql
 
 import com.coxautodev.graphql.tools.SchemaParserDictionary
+import com.example.graphqltutorial.model.Trip
+import com.example.graphqltutorial.model.TripNotFound
 import com.example.graphqltutorial.model.User
 import com.example.graphqltutorial.model.UserNotFound
 import org.springframework.context.annotation.Bean
@@ -14,5 +16,7 @@ class SchemaParserConfig {
         return SchemaParserDictionary()
             .add(UserNotFound::class)
             .add(User::class)
+            .add(TripNotFound::class)
+            .add(Trip::class)
     }
 }
