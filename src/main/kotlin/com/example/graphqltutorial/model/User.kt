@@ -34,6 +34,10 @@ data class UserDto (
         )
 }
 
+data class UserPayload(
+    val userId: String
+)
+
 enum class Gender {
     FEMALE, MALE
 }

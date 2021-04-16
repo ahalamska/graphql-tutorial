@@ -33,4 +33,12 @@ class TripRepository {
         return this.trips.filter { it.ownerId == ownerId }
     }
 
+    fun addTrip(trip: TripDto): String {
+        val res = trips.add(trip)
+        if (res) {
+            return trip.id
+        }
+        else throw UnsupportedOperationException()
+    }
+
 }
