@@ -42,6 +42,7 @@ type Trip {
     price: Float!
     participants: [User]
     owner: User
+    date: DateTime
 }
 
 input TripDto{
@@ -53,4 +54,7 @@ input TripDto{
     price: Float!
     ownerId: String!
     participantsId: [String!]!
+    date: DateTime
 }
+
+scalar DateTime

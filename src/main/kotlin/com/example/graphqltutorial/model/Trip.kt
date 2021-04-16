@@ -1,5 +1,7 @@
 package com.example.graphqltutorial.model
 
+import java.time.OffsetDateTime
+
 
 data class Trip (
         val id: String,
@@ -7,7 +9,8 @@ data class Trip (
         val place: String,
         val description: String,
         val maxParticipantsCount: Int?,
-        val price: Float
+        val price: Float,
+        val date: OffsetDateTime
 )
 
 data class TripDto (
@@ -18,7 +21,8 @@ data class TripDto (
     val maxParticipantsCount: Int?,
     val price: Float,
     val ownerId: String,
-    val participantsId: List<String>
+    val participantsId: List<String>,
+    val date: OffsetDateTime
 ) {
     fun getTrip() =
         Trip(
@@ -27,7 +31,8 @@ data class TripDto (
             place,
             description,
             maxParticipantsCount,
-            price
+            price,
+            date
         )
 }
 
