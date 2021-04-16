@@ -40,6 +40,8 @@ type Trip {
     description: String!
     maxParticipantsCount: Int
     price: Float!
+    participants: [User]
+    owner: User
 }
 
 input TripDto{

@@ -8,7 +8,6 @@ data class User (
         val login: String,
         val gender: Gender?,
         val age: Int?,
-        val createdTrips: List<Trip>
 )
 
 data class UserDto (
@@ -21,7 +20,7 @@ data class UserDto (
         val age: Int?,
         val createdTripsIds: List<String>
 ){
-    fun getUser(trips: List<Trip>) =
+    fun getUser() =
         User(
             id,
             firstName,
@@ -29,8 +28,7 @@ data class UserDto (
             email,
             login,
             gender,
-            age,
-            trips
+            age
         )
 }
 
