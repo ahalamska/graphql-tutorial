@@ -1,5 +1,7 @@
 package com.example.graphqltutorial.model
 
+import java.time.LocalDate
+
 data class User (
         val id: String,
         val firstName: String,
@@ -8,6 +10,7 @@ data class User (
         val login: String,
         val gender: Gender?,
         val age: Int?,
+        val birthDate: LocalDate,
 )
 
 data class UserDto (
@@ -18,7 +21,8 @@ data class UserDto (
         val login: String,
         val gender: Gender?,
         val age: Int?,
-        val createdTripsIds: List<String>
+        val createdTripsIds: List<String>,
+        val birthDate: LocalDate
 ){
     fun getUser() =
         User(
@@ -28,7 +32,8 @@ data class UserDto (
             email,
             login,
             gender,
-            age
+            age,
+            birthDate
         )
 }
 

@@ -58,3 +58,6 @@ input TripDto{
 }
 
 scalar DateTime
+
+scalar Date
+
