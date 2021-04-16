@@ -7,8 +7,18 @@ type User {
     login: String!
     gender: Gender
     age: Int
+    createdTrips: [Trip]
 }
 
 enum Gender {
 FEMALE, MALE
+}
+
+type Trip {
+    id: ID!
+    name: String!
+    place: String!
+    description: String!
+    maxParticipantsCount: Int
+    price: Float!
 }

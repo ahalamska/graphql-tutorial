@@ -16,6 +16,9 @@ class UserRepository {
     fun findUsers(): List<UserDto> {
         return this.users
     }
+    fun findUsers(ids: List<String>): List<UserDto> {
+        return this.users.filter { ids.contains(it.id) }
+    }
 
     private final fun init(): List<UserDto> {
         val users = ArrayList<UserDto>()
