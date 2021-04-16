@@ -2,24 +2,26 @@ package com.example.graphqltutorial.graphql
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver
 import com.example.graphqltutorial.TripRepository
-import com.example.graphqltutorial.model.User
 import com.example.graphqltutorial.UserRepository
 import com.example.graphqltutorial.model.Trip
+import com.example.graphqltutorial.model.UserCandidate
+import com.example.graphqltutorial.model.UserNotFound
+import graphql.schema.DataFetchingEnvironment
 import org.springframework.stereotype.Component
 
 @Component
 class Query(val userRepository: UserRepository, val tripRepository: TripRepository) : GraphQLQueryResolver {
     fun version() = "1.0.0"
 
-    fun user(id: String): User? =
+    fun user(id: String, dfe: DataFetchingEnvironment): UserCandidate =
         userRepository.findUser(id).let {
             if(it != null) {
                 return it.getUser()
             }
-            return null
+            return UserNotFound(id)
         }
 
-    fun users(): List<User> =
+    fun users(): List<UserCandidate> =
         userRepository.findUsers().map {
             it.getUser()
         }
