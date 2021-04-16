@@ -13,7 +13,7 @@ data class Trip (
         val date: OffsetDateTime
 )
 
-data class TripDto (
+data class TripDto(
     val id: String,
     val name: String,
     val place: String,
