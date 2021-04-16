@@ -14,14 +14,14 @@ class Query(val userRepository: UserRepository, val tripRepository: TripReposito
     fun user(id: String): User? =
         userRepository.findUser(id).let {
             if(it != null) {
-                return it.getUser(tripRepository.findTrips(it.createdTripsIds).map { dto -> dto.getTrip() })
+                return it.getUser()
             }
             return null
         }
 
     fun users(): List<User> =
         userRepository.findUsers().map {
-            it.getUser(tripRepository.findTrips(it.createdTripsIds).map { dto -> dto.getTrip() })
+            it.getUser()
         }
 
     fun trip(id: String): Trip? =
