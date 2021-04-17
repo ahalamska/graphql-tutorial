@@ -8,41 +8,77 @@ import com.example.graphqltutorial.model.User
 import com.example.graphqltutorial.model.UserCandidate
 import org.springframework.stereotype.Component
 import java.time.OffsetDateTime
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
 
 
 @Component
-class TripResolver(val userRepository: UserRepository, val tripRepository: TripRepository): GraphQLResolver<Trip> {
+class TripResolver(val userRepository: UserRepository, val tripRepository: TripRepository, val executor: Executor): GraphQLResolver<Trip> {
 
 
-    fun name(trip: Trip): String? =
-        tripRepository.findTrip(trip.id)?.name
+    fun name(trip: Trip): CompletableFuture<String?> =
+        CompletableFuture.supplyAsync(
+            {
+                tripRepository.findTrip(trip.id)?.name
+            },
+            executor::execute)
 
-    fun place(trip: Trip): String? =
-        tripRepository.findTrip(trip.id)?.place
+    fun place(trip: Trip): CompletableFuture<String?> =
+        CompletableFuture.supplyAsync(
+            {
+                tripRepository.findTrip(trip.id)?.place
+            },
+            executor::execute)
 
-    fun description(trip: Trip): String? =
-        tripRepository.findTrip(trip.id)?.description
+    fun description(trip: Trip): CompletableFuture<String?> =
+        CompletableFuture.supplyAsync(
+            {
+                tripRepository.findTrip(trip.id)?.description
+            },
+            executor::execute)
 
-    fun maxParticipantsCount(trip: Trip): Int? =
-        tripRepository.findTrip(trip.id)?.maxParticipantsCount
+    fun maxParticipantsCount(trip: Trip): CompletableFuture<Int?> =
+        CompletableFuture.supplyAsync(
+            {
+                tripRepository.findTrip(trip.id)?.maxParticipantsCount
+            },
+            executor::execute)
 
-    fun price(trip: Trip): Float? =
-        tripRepository.findTrip(trip.id)?.price
+    fun price(trip: Trip): CompletableFuture<Float?> =
+        CompletableFuture.supplyAsync(
+            {
+                tripRepository.findTrip(trip.id)?.price
+            },
+            executor::execute)
 
-    fun date(trip: Trip): OffsetDateTime? =
-        tripRepository.findTrip(trip.id)?.date
+    fun date(trip: Trip): CompletableFuture<OffsetDateTime?> =
+        CompletableFuture.supplyAsync(
+            {
+                tripRepository.findTrip(trip.id)?.date
+            },
+            executor::execute)
 
-    fun owner(trip: Trip): UserCandidate? {
-        tripRepository.findTrip(trip.id)?.let {
-            return userRepository.findUser(it.ownerId)?.getUser()
-        }
-        return null
+    fun owner(trip: Trip): CompletableFuture<UserCandidate?> {
+        return CompletableFuture.supplyAsync(
+            {
+                tripRepository.findTrip(trip.id)?.let {
+                    userRepository.findUser(it.ownerId)?.getUser()
+                }
+                null
+            },
+            executor::execute)
+
     }
 
-    fun participants(trip: Trip): List<User> {
-        tripRepository.findTrip(trip.id)?.let {
-            return userRepository.findUsers(it.participantsId).map{ user -> user.getUser() }
-        }
-        return emptyList()
+    fun participants(trip: Trip): CompletableFuture<List<User>> {
+        return CompletableFuture.supplyAsync(
+            {
+                tripRepository.findTrip(trip.id)?.let {
+                    userRepository.findUsers(it.participantsId).map { user -> user.getUser() }
+                }
+                emptyList()
+            },
+            executor::execute)
     }
+
 }
