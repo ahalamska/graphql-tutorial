@@ -11,13 +11,7 @@ data class TripNotFound(
 ) : TripCandidate
 
 data class Trip(
-    override val id: String,
-    val name: String,
-    val place: String,
-    val description: String,
-    val maxParticipantsCount: Int?,
-    val price: Float,
-    val date: OffsetDateTime
+    override val id: String
 ) : TripCandidate
 
 data class TripDto(
@@ -33,13 +27,7 @@ data class TripDto(
 ) {
     fun getTrip() =
         Trip(
-            id,
-            name,
-            place,
-            description,
-            maxParticipantsCount,
-            price,
-            date
+            id
         )
 }
 

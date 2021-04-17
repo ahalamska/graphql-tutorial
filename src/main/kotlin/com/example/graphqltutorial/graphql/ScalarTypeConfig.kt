@@ -49,7 +49,7 @@ internal class ScalarTypeConfig {
             object : Coercing<LocalDate, String> {
                 @Throws(CoercingSerializeException::class)
                 override fun serialize(dataFetcherResult: Any): String {
-                    return if (dataFetcherResult is OffsetDateTime) {
+                    return if (dataFetcherResult is LocalDate) {
                         dataFetcherResult.format(DateTimeFormatter.ISO_DATE)
                     } else throw CoercingSerializeException(
                         "Error occurred on serializing class ")
