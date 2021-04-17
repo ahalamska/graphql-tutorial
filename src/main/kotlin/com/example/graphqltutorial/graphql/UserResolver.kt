@@ -5,9 +5,7 @@ import com.example.graphqltutorial.TripRepository
 import com.example.graphqltutorial.UserRepository
 import com.example.graphqltutorial.model.Gender
 import com.example.graphqltutorial.model.Trip
-import com.example.graphqltutorial.model.TripCandidate
 import com.example.graphqltutorial.model.User
-import com.example.graphqltutorial.model.UserCandidate
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 import java.util.concurrent.TimeUnit
