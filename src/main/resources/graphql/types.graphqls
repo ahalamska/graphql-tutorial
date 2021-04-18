@@ -39,10 +39,9 @@ type Trip {
     place: String!
     description: String!
     maxParticipantsCount: Int
-    price: Float!
+    pricePln: PLNCurrency
     participants: [User]
     owner: User
-    date: DateTime
 }
 
 input TripDto{
@@ -51,10 +50,9 @@ input TripDto{
     place: String!
     description: String!
     maxParticipantsCount: Int
-    price: Float!
+    pricePln: PLNCurrency
     ownerId: String!
     participantsId: [String!]!
-    date: DateTime
 }
 
-scalar DateTime
+scalar PLNCurrency
