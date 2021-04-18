@@ -7,8 +7,7 @@ import com.example.graphqltutorial.model.Trip
 import com.example.graphqltutorial.model.User
 import com.example.graphqltutorial.model.UserCandidate
 import org.springframework.stereotype.Component
-import java.time.OffsetDateTime
-
+import java.math.BigDecimal
 
 @Component
 class TripResolver(val userRepository: UserRepository, val tripRepository: TripRepository): GraphQLResolver<Trip> {
@@ -26,11 +25,9 @@ class TripResolver(val userRepository: UserRepository, val tripRepository: TripR
     fun maxParticipantsCount(trip: Trip): Int? =
         tripRepository.findTrip(trip.id)?.maxParticipantsCount
 
-    fun price(trip: Trip): Float? =
-        tripRepository.findTrip(trip.id)?.price
+    fun pricePln(trip: Trip): BigDecimal? =
+        tripRepository.findTrip(trip.id)?.pricePln
 
-    fun date(trip: Trip): OffsetDateTime? =
-        tripRepository.findTrip(trip.id)?.date
 
     fun owner(trip: Trip): UserCandidate? {
         tripRepository.findTrip(trip.id)?.let {
