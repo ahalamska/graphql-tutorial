@@ -9,9 +9,21 @@ import graphql.schema.GraphQLScalarType
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.math.BigDecimal
+import java.util.regex.Pattern
 
 @Configuration
 internal class ScalarTypeConfig {
+
+    val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+            "\\@" +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+            "(" +
+            "\\." +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+            ")+"
+    )
+
     @Bean
     fun currencyScalarType(): GraphQLScalarType {
         return GraphQLScalarType("PLNCurrency", "String representing PLN monetary value - decimal with 2 places like 13.42",
@@ -63,5 +75,14 @@ internal class ScalarTypeConfig {
                      }
                 }
             })
+    }
+
+
+        fun isValidEmail(target: CharSequence?): Boolean {
+        return if (target.isNullOrBlank()) {
+            false
+        } else {
+            EMAIL_ADDRESS_PATTERN.matcher(target).matches()
+        }
     }
 }
