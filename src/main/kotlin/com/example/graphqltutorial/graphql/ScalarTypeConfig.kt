@@ -16,6 +16,7 @@ internal class ScalarTypeConfig {
     fun dateTimeScalarType(): GraphQLScalarType {
         return GraphQLScalarType("DateTime", "An RFC-3339 compliant date time scalar that accepts string values like 1996-12-19T16:39:57-08:00",
             object : Coercing<OffsetDateTime, String> {
+
                 @Throws(CoercingSerializeException::class)
                 override fun serialize(dataFetcherResult: Any): String {
                     return if (dataFetcherResult is OffsetDateTime) {
@@ -26,12 +27,22 @@ internal class ScalarTypeConfig {
 
                 @Throws(CoercingParseValueException::class)
                 override fun parseValue(input: Any): OffsetDateTime {
-                    return parse(input)
+                    try {
+                        return parse(input)
+                    }
+                    catch (e: Exception){
+                        throw CoercingParseValueException("Bad request")
+                    }
                 }
 
                 @Throws(CoercingParseLiteralException::class)
                 override fun parseLiteral(input: Any): OffsetDateTime {
-                    return parse(input)
+                    try {
+                        return parse(input)
+                    }
+                    catch (e: Exception){
+                        throw CoercingParseLiteralException("Bad request")
+                    }
                 }
 
                 protected fun parse(input: Any?): OffsetDateTime {
