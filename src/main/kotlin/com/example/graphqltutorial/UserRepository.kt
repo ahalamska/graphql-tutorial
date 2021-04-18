@@ -3,7 +3,6 @@ package com.example.graphqltutorial
 import com.example.graphqltutorial.model.Gender
 import com.example.graphqltutorial.model.UserDto
 import org.springframework.stereotype.Service
-import java.time.LocalDate
 
 @Service
 class UserRepository {
@@ -23,11 +22,11 @@ class UserRepository {
 
     private final fun init(): List<UserDto> {
         val users = ArrayList<UserDto>()
-        users.add(UserDto("1", "Adam", "Kowalski", "adam.kowalski@gmail.com", "akowalski", Gender.MALE, 13, emptyList(), LocalDate.now()))
-        users.add(UserDto("2", "Marek", "Kowalski", "marek.kowalski@gmail.com", "mkowalski", Gender.MALE, 45, emptyList(), LocalDate.now()))
-        users.add(UserDto("3", "Renata", "Kowalska", "renata.kowalska@gmail.com", "rkowalska", Gender.FEMALE, 43, emptyList(), LocalDate.now()))
-        users.add(UserDto("4", "Katarzyna", "Kowalska", "kasia.kowalska@gmail.com", "kkowalska", Gender.FEMALE, 10, emptyList(), LocalDate.now()))
-        users.add(UserDto("5", "Adam", "Nowak", "adam.nowak@gmail.com", "anowak", Gender.MALE, 36, listOf("1", "2", "3", "4"), LocalDate.now()))
+        users.add(UserDto("1", "Adam", "Kowalski", "adam.kowalski@gmail.com", "akowalski", Gender.MALE, 13, emptyList()))
+        users.add(UserDto("2", "Marek", "Kowalski", "marek.kowalski@gmail.com", "mkowalski", Gender.MALE, 45, emptyList()))
+        users.add(UserDto("3", "Renata", "Kowalska", "renata.kowalska@gmail.com", "rkowalska", Gender.FEMALE, 43, emptyList()))
+        users.add(UserDto("4", "Katarzyna", "Kowalska", "kasia.kowalska@gmail.com", "kkowalska", Gender.FEMALE, 10, emptyList()))
+        users.add(UserDto("5", "Adam", "Nowak", "adam.nowak@gmail.com", "anowak", Gender.MALE, 36, listOf("1", "2", "3", "4")))
         return users
     }
 

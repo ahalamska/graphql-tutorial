@@ -2,7 +2,7 @@ package com.example.graphqltutorial
 
 import com.example.graphqltutorial.model.TripDto
 import org.springframework.stereotype.Service
-import java.time.OffsetDateTime
+import java.math.BigDecimal
 
 @Service
 class TripRepository {
@@ -19,10 +19,10 @@ class TripRepository {
 
     private final fun init(): ArrayList<TripDto> {
         val trips = ArrayList<TripDto>()
-        trips.add(TripDto("1", "Paris", "Paris", "Trip to Paris", 12, 1782.20f, "5", listOf("1","2"), OffsetDateTime.now()))
-        trips.add(TripDto("2", "Maledives", "Maledives", "Trip to Maledives", 14,147700.99f, "5", listOf("3","2"), OffsetDateTime.now()))
-        trips.add(TripDto("3", "Russia", "Russia", "Trip to Russia", 43, 23000.00f, "5", listOf("4","1"), OffsetDateTime.now()))
-        trips.add(TripDto("4", "USA", "USA", "Trip to USA", 44, 10000.00f, "5", listOf("3","4"), OffsetDateTime.now()))
+        trips.add(TripDto("1", "Paris", "Paris", "Trip to Paris", 12, BigDecimal.valueOf(1782.20), "5", listOf("1","2")))
+        trips.add(TripDto("2", "Maledives", "Maledives", "Trip to Maledives", 14,BigDecimal.valueOf(147700.99), "5", listOf("3","2")))
+        trips.add(TripDto("3", "Russia", "Russia", "Trip to Russia", 43, BigDecimal.valueOf(23000.00), "5", listOf("4","1")))
+        trips.add(TripDto("4", "USA", "USA", "Trip to USA", 44, BigDecimal.valueOf(10000.00), "5", listOf("3","4")))
         return trips
     }
 
