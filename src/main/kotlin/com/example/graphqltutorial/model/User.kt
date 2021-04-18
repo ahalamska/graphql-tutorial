@@ -1,6 +1,5 @@
 package com.example.graphqltutorial.model
 
-import java.time.LocalDate
 
 interface UserCandidate {
     val id: String
@@ -24,7 +23,6 @@ data class UserDto (
         val gender: Gender?,
         val age: Int?,
         val createdTripsIds: List<String>,
-        val birthDate: LocalDate
 ){
     fun getUser() =
         User(

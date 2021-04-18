@@ -5,11 +5,8 @@ import com.example.graphqltutorial.TripRepository
 import com.example.graphqltutorial.UserRepository
 import com.example.graphqltutorial.model.Gender
 import com.example.graphqltutorial.model.Trip
-import com.example.graphqltutorial.model.TripCandidate
 import com.example.graphqltutorial.model.User
-import com.example.graphqltutorial.model.UserCandidate
 import org.springframework.stereotype.Component
-import java.time.LocalDate
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
@@ -78,15 +75,6 @@ class UserResolver(val tripRepository: TripRepository, val userRepository: UserR
             {
                 TimeUnit.MILLISECONDS.sleep(100)
                 userRepository.findUser(user.id)?.age
-            },
-            executor::execute)
-    }
-
-    fun birthDate(user: User): CompletableFuture<LocalDate?> {
-        return CompletableFuture.supplyAsync(
-            {
-                TimeUnit.MILLISECONDS.sleep(100)
-                userRepository.findUser(user.id)?.birthDate
             },
             executor::execute)
     }

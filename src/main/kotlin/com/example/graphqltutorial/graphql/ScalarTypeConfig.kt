@@ -1,5 +1,6 @@
 package com.example.graphqltutorial.graphql
 
+import graphql.language.StringValue
 import graphql.schema.Coercing
 import graphql.schema.CoercingParseLiteralException
 import graphql.schema.CoercingParseValueException
@@ -7,67 +8,129 @@ import graphql.schema.CoercingSerializeException
 import graphql.schema.GraphQLScalarType
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
+import java.math.BigDecimal
+import java.util.regex.Pattern
 
 @Configuration
 internal class ScalarTypeConfig {
 
+    val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+            "\\@" +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+            "(" +
+            "\\." +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+            ")+"
+    )
+
     @Bean
-    fun dateTimeScalarType(): GraphQLScalarType {
-        return GraphQLScalarType("DateTime", "An RFC-3339 compliant date time scalar that accepts string values like 1996-12-19T16:39:57-08:00",
-            object : Coercing<OffsetDateTime, String> {
+    fun currencyScalarType(): GraphQLScalarType {
+        return GraphQLScalarType("PLNCurrency", "String representing PLN monetary value - decimal with 2 places like 13.42",
+            object : Coercing<BigDecimal, String> {
                 @Throws(CoercingSerializeException::class)
                 override fun serialize(dataFetcherResult: Any): String {
-                    return if (dataFetcherResult is OffsetDateTime) {
-                        dataFetcherResult.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+                    return if (dataFetcherResult is BigDecimal) {
+                        dataFetcherResult.toDouble().toString()
                     } else throw CoercingSerializeException(
                         "Error occurred on serializing class ")
                 }
 
                 @Throws(CoercingParseValueException::class)
-                override fun parseValue(input: Any): OffsetDateTime {
+                override fun parseValue(input: Any): BigDecimal {
                     return parse(input)
                 }
 
                 @Throws(CoercingParseLiteralException::class)
-                override fun parseLiteral(input: Any): OffsetDateTime {
+                override fun parseLiteral(input: Any): BigDecimal {
                     return parse(input)
                 }
 
-                protected fun parse(input: Any?): OffsetDateTime {
-                    return OffsetDateTime.parse(input as String?, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+                protected fun parse(input: Any?): BigDecimal {
+                    return BigDecimal(extractStringValue(input))
+                }
+
+                 private fun extractStringValue(input: Any?) : String?{
+                     return when (input) {
+                         is StringValue -> {
+                             input.value
+                         }
+                         is String -> {
+                             input
+                         }
+                         else -> {
+                             null
+                         }
+                     }
+                }
+            })
+
+    }
+
+
+
+    @Bean
+    fun emailScalarType(): GraphQLScalarType {
+        return GraphQLScalarType("Email", "String representing email",
+            object : Coercing<String, String> {
+
+                @Throws(CoercingSerializeException::class)
+                override fun serialize(dataFetcherResult: Any): String {
+                    return if (dataFetcherResult is String && isValidEmail(dataFetcherResult)) {
+                        dataFetcherResult
+                    } else throw CoercingSerializeException(
+                        "Error occurred on serializing class ")
+                }
+
+                @Throws(CoercingParseValueException::class)
+                override fun parseValue(input: Any): String {
+                    try {
+                        return parse(input)
+                    }
+                    catch (e: Exception){
+                        throw CoercingParseValueException("Bad request")
+                    }
+                }
+
+                @Throws(CoercingParseLiteralException::class)
+                override fun parseLiteral(input: Any): String {
+                    try {
+                        return parse(input)
+                    }
+                    catch (e: Exception){
+                        throw CoercingParseLiteralException("Bad request")
+                    }
+                }
+
+                protected fun parse(input: Any?): String {
+                    if( isValidEmail(extractStringValue(input))) {
+                        return extractStringValue(input)
+                    }
+                    throw java.lang.Exception()
+                }
+
+                private fun extractStringValue(input: Any?) : String{
+                    return when (input) {
+                        is StringValue -> {
+                            input.value
+                        }
+                        is String -> {
+                            input
+                        }
+                        else -> {
+                            throw java.lang.Exception()
+                        }
+                    }
                 }
             })
     }
 
-    @Bean
-    fun dateScalarType(): GraphQLScalarType {
-        return GraphQLScalarType("Date", "An RFC-3339 compliant date scalar that accepts string values like 1996-12-19"
-            ,
-            object : Coercing<LocalDate, String> {
-                @Throws(CoercingSerializeException::class)
-                override fun serialize(dataFetcherResult: Any): String {
-                    return if (dataFetcherResult is LocalDate) {
-                        dataFetcherResult.format(DateTimeFormatter.ISO_DATE)
-                    } else throw CoercingSerializeException(
-                        "Error occurred on serializing class ")
-                }
 
-                @Throws(CoercingParseValueException::class)
-                override fun parseValue(input: Any): LocalDate {
-                    return parse(input)
-                }
-
-                @Throws(CoercingParseLiteralException::class)
-                override fun parseLiteral(input: Any): LocalDate {
-                    return parse(input)
-                }
-
-                protected fun parse(input: Any?): LocalDate {
-                    return LocalDate.parse(input as String?, DateTimeFormatter.ISO_DATE)
-                }
-            })
+        fun isValidEmail(target: CharSequence?): Boolean {
+        return if (target.isNullOrBlank()) {
+            false
+        } else {
+            EMAIL_ADDRESS_PATTERN.matcher(target).matches()
+        }
     }
 }

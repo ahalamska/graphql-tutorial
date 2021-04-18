@@ -1,6 +1,6 @@
 package com.example.graphqltutorial.model
 
-import java.time.OffsetDateTime
+import java.math.BigDecimal
 
 interface TripCandidate {
     val id: String
@@ -20,10 +20,9 @@ data class TripDto(
     val place: String,
     val description: String,
     val maxParticipantsCount: Int?,
-    val price: Float,
+    val pricePln: BigDecimal,
     val ownerId: String,
     val participantsId: List<String>,
-    val date: OffsetDateTime
 ) {
     fun getTrip() =
         Trip(

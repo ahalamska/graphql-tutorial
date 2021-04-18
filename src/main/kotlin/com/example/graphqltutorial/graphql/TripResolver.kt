@@ -7,10 +7,10 @@ import com.example.graphqltutorial.model.Trip
 import com.example.graphqltutorial.model.User
 import com.example.graphqltutorial.model.UserCandidate
 import org.springframework.stereotype.Component
-import java.time.OffsetDateTime
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 
+import java.math.BigDecimal
 
 @Component
 class TripResolver(val userRepository: UserRepository, val tripRepository: TripRepository, val executor: Executor): GraphQLResolver<Trip> {
@@ -44,19 +44,13 @@ class TripResolver(val userRepository: UserRepository, val tripRepository: TripR
             },
             executor::execute)
 
-    fun price(trip: Trip): CompletableFuture<Float?> =
+    fun pricePln(trip: Trip): CompletableFuture<BigDecimal?> =
         CompletableFuture.supplyAsync(
             {
-                tripRepository.findTrip(trip.id)?.price
+                tripRepository.findTrip(trip.id)?.pricePln
             },
             executor::execute)
 
-    fun date(trip: Trip): CompletableFuture<OffsetDateTime?> =
-        CompletableFuture.supplyAsync(
-            {
-                tripRepository.findTrip(trip.id)?.date
-            },
-            executor::execute)
 
     fun owner(trip: Trip): CompletableFuture<UserCandidate?> {
         return CompletableFuture.supplyAsync(
