@@ -3,12 +3,11 @@ type User {
     id: ID!
     firstName: String!
     surname: String!
-    email: String!
+    email: Email!
     login: String!
     gender: Gender
     age: Int
     createdTrips: [Trip!]!
-    birthDate: Date
 }
 
 type UserNotFound {
@@ -30,7 +29,7 @@ input UserDto {
     id: ID!
     firstName: String!
     surname: String!
-    email: String!
+    email: Email!
     login: String!
     gender: Gender
     age: Int
@@ -47,10 +46,9 @@ type Trip {
     place: String!
     description: String!
     maxParticipantsCount: Int
-    price: Float!
+    pricePln: PLNCurrency
     participants: [User!]!
     owner: UserCandidate
-    date: DateTime
 }
 
 input TripDto{
@@ -59,13 +57,12 @@ input TripDto{
     place: String!
     description: String!
     maxParticipantsCount: Int
-    price: Float!
+    pricePln: PLNCurrency
     ownerId: String!
     participantsId: [String!]!
-    date: DateTime
 }
 
-scalar DateTime
+scalar PLNCurrency
 
-scalar Date
 
+scalar Email

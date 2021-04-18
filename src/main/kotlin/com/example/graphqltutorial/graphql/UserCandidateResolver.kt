@@ -7,7 +7,6 @@ import com.example.graphqltutorial.model.Gender
 import com.example.graphqltutorial.model.Trip
 import com.example.graphqltutorial.model.UserCandidate
 import org.springframework.stereotype.Component
-import java.time.LocalDate
 
 
 @Component
@@ -35,8 +34,4 @@ class UserCandidateResolver(val tripRepository: TripRepository, val userReposito
 
     fun age(user: UserCandidate): Int? =
         userRepository.findUser(user.id)?.age
-
-    fun birthDate(user: UserCandidate): LocalDate? =
-        userRepository.findUser(user.id)?.birthDate
-
 }
