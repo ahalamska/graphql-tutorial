@@ -16,11 +16,11 @@ import java.util.concurrent.TimeUnit
 class UserResolver(val tripRepository: TripRepository, val userRepository: UserRepository, val executor: Executor) : GraphQLResolver<User> {
 
 
-    fun createdTrips(user: User): CompletableFuture<List<Trip>> {
+    fun createdTrips(user: User, limit: Int): CompletableFuture<List<Trip>> {
         return CompletableFuture.supplyAsync(
             {
                 TimeUnit.MILLISECONDS.sleep(100)
-                tripRepository.findTripsByOwner(user.id).map { dto -> dto.getTrip() }
+                tripRepository.findTripsByOwner(user.id, limit).map { dto -> dto.getTrip() }
             },
             executor::execute)
     }

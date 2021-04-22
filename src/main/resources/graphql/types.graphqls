@@ -7,7 +7,7 @@ type User {
     login: String!
     gender: Gender
     age: Int
-    createdTrips: [Trip!]!
+    createdTrips(limit: Int): [Trip!]!
 }
 
 type UserNotFound {
