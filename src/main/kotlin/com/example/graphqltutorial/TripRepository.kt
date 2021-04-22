@@ -30,8 +30,8 @@ class TripRepository {
         return this.trips.filter { createdTripsIds.contains(it.id) }
     }
 
-    fun findTripsByOwner(ownerId: String): List<TripDto> {
-        return this.trips.filter { it.ownerId == ownerId }
+    fun findTripsByOwner(ownerId: String, limit: Int): List<TripDto> {
+        return this.trips.filter { it.ownerId == ownerId }.take(limit)
     }
 
     fun addTrip(trip: TripDto): String {
