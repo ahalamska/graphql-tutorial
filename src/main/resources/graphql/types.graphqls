@@ -53,7 +53,7 @@ type Trip {
     description: String!
     maxParticipantsCount: Int
     pricePln: PLNCurrency
-    participants: [User!]!
+    participants(limit: Int): [User!]!
     owner: UserCandidate
 }
 

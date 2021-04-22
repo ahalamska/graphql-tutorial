@@ -58,19 +58,17 @@ class TripResolver(val userRepository: UserRepository, val tripRepository: TripR
                 tripRepository.findTrip(trip.id)?.let {
                     userRepository.findUser(it.ownerId)?.getUser()
                 }
-                null
             },
             executor::execute)
 
     }
 
-    fun participants(trip: Trip): CompletableFuture<List<User>> {
+    fun participants(trip: Trip, limit: Int): CompletableFuture<List<User>> {
         return CompletableFuture.supplyAsync(
             {
                 tripRepository.findTrip(trip.id)?.let {
-                    userRepository.findUsers(it.participantsId).map { user -> user.getUser() }
-                }
-                emptyList()
+                     userRepository.findUsers(it.participantsId, limit).map { user -> user.getUser() }
+                }.orEmpty()
             },
             executor::execute)
     }
