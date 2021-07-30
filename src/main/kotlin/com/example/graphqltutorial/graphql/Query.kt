@@ -1,8 +1,8 @@
 package com.example.graphqltutorial.graphql
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver
-import com.example.graphqltutorial.TripRepository
-import com.example.graphqltutorial.UserRepository
+import com.example.graphqltutorial.repository.TripRepository
+import com.example.graphqltutorial.repository.UserRepository
 import com.example.graphqltutorial.model.Trip
 import com.example.graphqltutorial.model.TripCandidate
 import com.example.graphqltutorial.model.User

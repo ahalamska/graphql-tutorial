@@ -17,7 +17,7 @@ data class Trip(
 data class TripDto(
     val id: String,
     val name: String,
-    val place: String,
+    var place: String,
     val description: String,
     val maxParticipantsCount: Int?,
     val pricePln: BigDecimal,
@@ -32,4 +32,13 @@ data class TripDto(
 
 data class TripPayload(
     val tripId: String
+)
+
+data class UpdatePlacePayload(
+    val tripId: String
+)
+
+data class UpdatePlace(
+    val id: String,
+    var place: String,
 )

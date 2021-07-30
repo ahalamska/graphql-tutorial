@@ -1,4 +1,4 @@
-package com.example.graphqltutorial
+package com.example.graphqltutorial.repository
 
 import com.example.graphqltutorial.model.Gender
 import com.example.graphqltutorial.model.UserDto
@@ -20,7 +20,7 @@ class UserRepository {
         return this.users.filter { ids.contains(it.id) }.take(limit)
     }
 
-    private final fun init(): List<UserDto> {
+    private fun init(): List<UserDto> {
         val users = ArrayList<UserDto>()
         users.add(UserDto("1", "Adam", "Kowalski", "adam.kowalski@gmail.com", "akowalski", Gender.MALE, 13, emptyList()))
         users.add(UserDto("2", "Marek", "Kowalski", "marek.kowalski@gmail.com", "mkowalski", Gender.MALE, 45, emptyList()))
