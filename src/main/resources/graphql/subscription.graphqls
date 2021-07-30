@@ -1,3 +1,4 @@
 type Subscription {
     tripsPlace(tripId: String!): String!
+    userAge(userId: String): String!
 }

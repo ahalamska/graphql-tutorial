@@ -17,7 +17,8 @@ import org.springframework.stereotype.Component
 class Mutation(
     val userRepository: UserRepository,
     val tripRepository: TripRepository,
-    val publisher: TripPublisher
+    val tripPublisher: TripPublisher,
+    val userPublisher: UserPublisher
 ) : GraphQLMutationResolver {
 
     fun addUser(user: UserDto): UserPayload? =
@@ -29,11 +30,13 @@ class Mutation(
     fun updatePlace(update: UpdatePlace): UpdatePlacePayload? =
         UpdatePlacePayload(tripRepository.updatePlace(update.id, update.place))
             .also {
-                publisher.publish(update)
+                tripPublisher.publish(update)
             }
 
     fun updateAge(update: UpdateAge): UpdateAgePayload? =
         UpdateAgePayload(userRepository.updateAge(update.id, update.age))
-
+            .also {
+                userPublisher.publish(update)
+            }
 }
 
