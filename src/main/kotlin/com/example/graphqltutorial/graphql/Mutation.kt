@@ -5,6 +5,8 @@ import com.example.graphqltutorial.repository.TripRepository
 import com.example.graphqltutorial.repository.UserRepository
 import com.example.graphqltutorial.model.TripDto
 import com.example.graphqltutorial.model.TripPayload
+import com.example.graphqltutorial.model.UpdateAge
+import com.example.graphqltutorial.model.UpdateAgePayload
 import com.example.graphqltutorial.model.UpdatePlace
 import com.example.graphqltutorial.model.UpdatePlacePayload
 import com.example.graphqltutorial.model.UserDto
@@ -29,6 +31,9 @@ class Mutation(
             .also {
                 publisher.publish(update)
             }
+
+    fun updateAge(update: UpdateAge): UpdateAgePayload? =
+        UpdateAgePayload(userRepository.updateAge(update.id, update.age))
 
 }
 

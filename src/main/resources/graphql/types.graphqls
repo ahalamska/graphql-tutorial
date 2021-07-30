@@ -29,6 +29,10 @@ type UpdatePlacePayload {
     tripId: String
 }
 
+type UpdateAgePayload {
+    userId: String
+}
+
 input UserDto {
     id: ID!
     firstName: String!
@@ -72,9 +76,14 @@ input TripDto{
     participantsId: [String!]!
 }
 
-input UpdatePlace{
+input UpdatePlace {
     id: ID!
     place: String!
+}
+
+input UpdateAge {
+    id: ID!
+    age: Int!
 }
 
 scalar PLNCurrency

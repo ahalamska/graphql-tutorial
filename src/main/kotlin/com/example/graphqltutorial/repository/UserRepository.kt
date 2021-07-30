@@ -38,4 +38,12 @@ class UserRepository {
         else throw UnsupportedOperationException()
     }
 
+    fun updateAge(id: String, age: Int): String {
+        this.users.find { it.id == id }!!.let {
+            users.remove(it)
+            it.age = age
+            return addUser(it)
+        }
+    }
+
 }
