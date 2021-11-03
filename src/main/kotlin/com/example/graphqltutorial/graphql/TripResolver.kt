@@ -69,8 +69,7 @@ class TripResolver(val userRepository: UserRepository, val tripRepository: TripR
             {
                 tripRepository.findTrip(trip.id)?.let {
                     userRepository.findUsers(it.participantsId).map { user -> user.getUser() }
-                }
-                emptyList()
+                }.orEmpty()
             },
             executor::execute)
     }
